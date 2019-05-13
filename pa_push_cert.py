@@ -30,17 +30,16 @@ response = requests.post(api_uri, files=files ,verify=False)
 if response.status_code == 200:
     print('Certificate Load: Success')
     syslog.syslog("Certificate Load: "+ name + "Success")
+    commit_api_uri="https://" + pa_host + "/api/?type=commit&key=" + api_key + "&cmd=<commit></commit>"
+    #execute the api commit call
+    response = requests.get(commit_api_uri ,verify=False)
+    #todo: read http code and return an exit code back to the os to make it more script friendly.
+    if response.status_code == 200:
+        print('PA Commit: Success')
+        syslog.syslog('PA Commit('+ name +'): Success')
+    elif response.status_code == 404:
+        print('PA Commit('+ name +'): Failed')
+        syslog.syslog('PA Commit: Failure')
 elif response.status_code == 404:
     print('Certificate Load: Failed')
     syslog.syslog("Certificate Load: "+ name + "Failed")
-commit_api_uri="https://" + pa_host + "/api/?type=commit&key=" + api_key + "&cmd=<commit></commit>"
-#execute the api commit call
-response = requests.get(commit_api_uri ,verify=False)
-#todo: read http code and return an exit code back to the os to make it more script friendly.
-if response.status_code == 200:
-    print('PA Commit: Success')
-    syslog.syslog('PA Commit('+ name +'): Success')
-elif response.status_code == 404:
-    print('PA Commit('+ name +'): Failed')
-    syslog.syslog('PA Commit: Failure')
-
