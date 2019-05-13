@@ -1,4 +1,4 @@
-import requests, sys, os
+import requests, sys, os, syslog
 
 #name of the certificate on the firewall. usually taken from file name of LE certificate.
 name = sys.argv[1]
@@ -29,9 +29,10 @@ response = requests.post(api_uri, files=files ,verify=False)
 #todo: read http code and return an exit code back to the os to make it more script friendly.
 if response.status_code == 200:
     print('Certificate Load: Success')
+    syslog.syslog("Certificate Load: "+ name + "Success")
 elif response.status_code == 404:
     print('Certificate Load: Failed')
-
+    syslog.syslog("Certificate Load: "+ name + "Failed")
 commit_api_uri="https://" + pa_host + "/api/?type=commit&key=" + api_key + "&cmd=<commit></commit>"
 #execute the api commit call
 response = requests.get(commit_api_uri ,verify=False)
