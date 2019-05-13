@@ -37,9 +37,12 @@ if response.status_code == 200:
     if response.status_code == 200:
         print('PA Commit: Success')
         syslog.syslog('PA Commit('+ name +'): Success')
+        exit(0)
     elif response.status_code == 404:
         print('PA Commit('+ name +'): Failed')
         syslog.syslog('PA Commit: Failure')
+        exit(2)
 elif response.status_code == 404:
     print('Certificate Load: Failed')
     syslog.syslog("Certificate Load: "+ name + "Failed")
+    exit(1)
