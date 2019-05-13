@@ -39,8 +39,8 @@ response = requests.get(commit_api_uri ,verify=False)
 #todo: read http code and return an exit code back to the os to make it more script friendly.
 if response.status_code == 200:
     print('PA Commit: Success')
-    syslog.syslog('PA Commit: Success')
+    syslog.syslog('PA Commit('+ name +'): Success')
 elif response.status_code == 404:
-    print('PA Commit: Failed')
+    print('PA Commit('+ name +'): Failed')
     syslog.syslog('PA Commit: Failure')
 
