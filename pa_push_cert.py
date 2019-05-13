@@ -26,7 +26,7 @@ files = {'file': ('lets_encrypt_certificate.pkcs12', open('le_export.pkcs12', 'r
 
 #execute the api call
 response = requests.post(api_uri, files=files ,verify=False)
-#todo: read http code and return an exit code back to the os to make it more script friendly.
+#read http code and return an exit code back to the os to make it more script friendly.
 if response.status_code == 200:
     print('Certificate Load: Success')
     syslog.syslog("Certificate Load: "+ name + "Success")
