@@ -26,6 +26,12 @@ files = {'file': ('lets_encrypt_certificate.pkcs12', open('le_export.pkcs12', 'r
 
 #execute the api call
 response = requests.post(api_uri, files=files ,verify=False)
-
 #todo: read http code and return an exit code back to the os to make it more script friendly.
 print(response.text)
+
+commit_api_uri="https://" + pa_host + "/api/?type=commit&key=" + api_key + "&cmd=<commit></commit>"
+#execute the api commit call
+response = requests.get(commit_api_uri ,verify=False)
+#todo: read http code and return an exit code back to the os to make it more script friendly.
+print(response.text)
+
