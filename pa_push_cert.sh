@@ -12,5 +12,5 @@ if [ -d /etc/letsencrypt/live ]; then
 		done
 fi
 else
-    echo "Error: Lets Encrypt folder not found"
+        echo "Error: Lets Encrypt folder not found"
 fi
